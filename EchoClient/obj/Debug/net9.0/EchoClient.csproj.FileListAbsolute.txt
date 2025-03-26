@@ -1,0 +1,14 @@
+D:\KFU\C#\Основы программной инженерии\lab_3\EchoClient\bin\Debug\net9.0\EchoClient.exe
+D:\KFU\C#\Основы программной инженерии\lab_3\EchoClient\bin\Debug\net9.0\EchoClient.deps.json
+D:\KFU\C#\Основы программной инженерии\lab_3\EchoClient\bin\Debug\net9.0\EchoClient.runtimeconfig.json
+D:\KFU\C#\Основы программной инженерии\lab_3\EchoClient\bin\Debug\net9.0\EchoClient.dll
+D:\KFU\C#\Основы программной инженерии\lab_3\EchoClient\bin\Debug\net9.0\EchoClient.pdb
+D:\KFU\C#\Основы программной инженерии\lab_3\EchoClient\obj\Debug\net9.0\EchoClient.GeneratedMSBuildEditorConfig.editorconfig
+D:\KFU\C#\Основы программной инженерии\lab_3\EchoClient\obj\Debug\net9.0\EchoClient.AssemblyInfoInputs.cache
+D:\KFU\C#\Основы программной инженерии\lab_3\EchoClient\obj\Debug\net9.0\EchoClient.AssemblyInfo.cs
+D:\KFU\C#\Основы программной инженерии\lab_3\EchoClient\obj\Debug\net9.0\EchoClient.csproj.CoreCompileInputs.cache
+D:\KFU\C#\Основы программной инженерии\lab_3\EchoClient\obj\Debug\net9.0\EchoClient.dll
+D:\KFU\C#\Основы программной инженерии\lab_3\EchoClient\obj\Debug\net9.0\refint\EchoClient.dll
+D:\KFU\C#\Основы программной инженерии\lab_3\EchoClient\obj\Debug\net9.0\EchoClient.pdb
+D:\KFU\C#\Основы программной инженерии\lab_3\EchoClient\obj\Debug\net9.0\EchoClient.genruntimeconfig.cache
+D:\KFU\C#\Основы программной инженерии\lab_3\EchoClient\obj\Debug\net9.0\ref\EchoClient.dll
