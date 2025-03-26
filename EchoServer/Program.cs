@@ -6,6 +6,8 @@ namespace EchoServer;
 
 class EchoServer
 {
+    private static int equationsSolved = 0;
+
     public static void Main()
     {
         StartServer();
@@ -39,11 +41,33 @@ class EchoServer
                     while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
                     {
                         string receivedMessage = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-                        Console.WriteLine("Получено: {0}", receivedMessage);
-                        // Отправляем эхо обратно клиенту
-                        byte[] response = Encoding.UTF8.GetBytes(receivedMessage);
+                        Console.WriteLine("Получены коэффициенты: {0}", receivedMessage);
+                        // Парсинг коэффициентов
+                        string[] coefficients = receivedMessage.Split(' ');
+                        if (
+                            coefficients.Length != 3
+                            || !double.TryParse(coefficients[0], out double a)
+                            || !double.TryParse(coefficients[1], out double b)
+                            || !double.TryParse(coefficients[2], out double c)
+                        )
+                        {
+                            string errorMessage =
+                                "Ошибка: Неверный формат коэффициентов. Ожидается три числа, разделенных пробелами.";
+                            byte[] errorResponse = Encoding.UTF8.GetBytes(errorMessage);
+                            stream.Write(errorResponse, 0, errorResponse.Length);
+                            Console.WriteLine(errorMessage);
+                            continue;
+                        }
+
+                        string solution = SolveQuadraticEquation(a, b, c);
+                        equationsSolved++;
+                        Console.WriteLine($"Решено уравнение: {a}x^2 + {b}x + {c} = 0");
+                        Console.WriteLine($"Решение: {solution}");
+                        Console.WriteLine($"Всего решено уравнений: {equationsSolved}");
+
+                        byte[] response = Encoding.UTF8.GetBytes(solution);
                         stream.Write(response, 0, response.Length);
-                        Console.WriteLine("Отправлено обратно: {0}", receivedMessage);
+                        Console.WriteLine("Отправлено обратно: {0}", solution);
                     }
                 }
                 catch (Exception ex)
@@ -66,6 +90,32 @@ class EchoServer
         finally
         {
             server.Stop();
+        }
+    }
+
+    private static string SolveQuadraticEquation(double a, double b, double c)
+    {
+        if (a == 0)
+        {
+            return "Коэффициент 'a' не может быть нулем. Это не квадратное уравнение.";
+        }
+
+        double discriminant = b * b - 4 * a * c;
+
+        if (discriminant > 0)
+        {
+            double x1 = (-b + Math.Sqrt(discriminant)) / (2 * a);
+            double x2 = (-b - Math.Sqrt(discriminant)) / (2 * a);
+            return $"Два действительных корня: x1 = {x1:F2}, x2 = {x2:F2}";
+        }
+        else if (discriminant == 0)
+        {
+            double x = -b / (2 * a);
+            return $"Один действительный корень: x = {x:F2}";
+        }
+        else
+        {
+            return "Действительных корней нет (дискриминант отрицательный).";
         }
     }
 }

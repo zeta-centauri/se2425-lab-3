@@ -14,20 +14,47 @@ class EchoClient
             // Бесконечный цикл для ввода сообщений
             while (true)
             {
-                Console.Write("Введите сообщение (или 'exit' для выхода): ");
-                string? message = Console.ReadLine();
+                Console.Write(
+                    "Введите коэффициенты квадратного уравнения: a, b, c (или 'exit' для выхода): "
+                );
+                string? input = Console.ReadLine();
                 // Проверяем условие выхода
-                if (message!.ToLower() == "exit")
+                if (input!.ToLower() == "exit")
                     break;
-                // От // Отправляем сообщение
-                byte[] data = Encoding.UTF8.GetBytes(message);
-                stream.Write(data, 0, data.Length);
-                Console.WriteLine("Отправлено: {0}", message);
-                // Читаем ответ от сервера
-                byte[] buffer = new byte[1024];
-                int bytesRead = stream.Read(buffer, 0, buffer.Length);
-                string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-                Console.WriteLine("Получено от сервера: {0}", response);
+
+                try
+                {
+                    var parts = input.Split(" ");
+                    if (parts.Length != 3)
+                    {
+                        Console.WriteLine(
+                            "Ошибка: необходимо ввести 3 числа, разделенных пробелами"
+                        );
+                        continue;
+                    }
+
+                    double a = double.Parse(parts[0]);
+                    double b = double.Parse(parts[1]);
+                    double c = double.Parse(parts[2]);
+
+                    byte[] data = Encoding.UTF8.GetBytes(input);
+                    stream.Write(data, 0, data.Length);
+                    Console.WriteLine($"Отправка уравнения: {a}x^2 + {b}x + {c} = 0");
+
+                    // Чтение ответа от сервера
+                    byte[] buffer = new byte[1024];
+                    int bytesRead = stream.Read(buffer, 0, buffer.Length);
+                    string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                    Console.WriteLine("Получено от сервера: {0}", response);
+                }
+                catch (FormatException ex)
+                {
+                    Console.WriteLine($"Ошибка: введены нечисловые значения - {ex.Message}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Ошибка: " + ex.Message);
+                }
             }
             // Закрываем соединение
             stream.Close();
