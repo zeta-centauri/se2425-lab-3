@@ -1,0 +1,22 @@
+## .NET ##
+[Bb]in/
+[Oo]bj/
+*.exe
+*.dll
+*.pdb
+*.cache
+
+## Visual Studio ##
+.vscode
+.vs/
+*.user
+*.suo
+*.userprefs
+
+## NuGet ##
+packages/
+*.nupkg
+
+## Тесты и логи ##
+TestResults/
+*.log
